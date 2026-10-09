@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/recipehub/dao/RecipeAddDAO.java" value="93c1988c-ba00-4d3b-a21c-88f1d4d01f59" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/recipehub/dao/RecipeDAOImpl.java" value="93c1988c-ba00-4d3b-a21c-88f1d4d01f59" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/recipehub/dao/UserDAOImpl.java" value="93c1988c-ba00-4d3b-a21c-88f1d4d01f59" />
+  </component>
+</project>
