@@ -1,4 +1,3 @@
-
 package com.recipehub.dao;
 
 import com.recipehub.model.Recipe;

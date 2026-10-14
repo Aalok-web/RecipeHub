@@ -1,4 +1,3 @@
-
 package com.recipehub.servlet;
 
 import com.recipehub.dao.UserDAO;
