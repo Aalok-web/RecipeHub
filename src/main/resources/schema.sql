@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 
 -- Insert Sample Users (Pass: password123)
 INSERT INTO users (id, name, email, password, role) VALUES
-(1, 'Aalok Kumar', 'aalok@example.com', 'Aalok@12345', 'ADMIN'),
+(1, 'Aalok Kumar', 'aalok@example.com', 'admin123', 'ADMIN'),
 (2, 'Chef Gordon', 'gordon@example.com', 'chef123', 'USER')
 ON DUPLICATE KEY UPDATE name=VALUES(name);
 

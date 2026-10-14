@@ -224,24 +224,39 @@ OnlineRecipeSharingSystem/
 
 ### 2. Database Configuration
 1. Start your local MySQL service.
-2. Run the database script using MySQL CLI or MySQL Workbench:
+2. Run the database schema script using MySQL CLI or MySQL Workbench:
    ```bash
+   # Standard MySQL CLI (if in PATH):
    mysql -u root -p < database/schema.sql
+
+   # On macOS default MySQL path:
+   /usr/local/mysql/bin/mysql -u root -p < database/schema.sql
    ```
-3. Update connection credentials in [`src/main/java/com/recipehub/util/DBConnection.java`](src/main/java/com/recipehub/util/DBConnection.java) if your password differs from `Aalok@12345`:
-   ```java
-   private static final String URL = "jdbc:mysql://localhost:3306/recipe_db";
-   private static final String USER = "root";
-   private static final String PASSWORD = "your_mysql_password";
-   ```
+3. Configure database credentials securely (no passwords are hardcoded in git):
+   - **Method A (Properties File)**: Copy `src/main/resources/db.properties.example` to `src/main/resources/db.properties` and enter your local password:
+     ```properties
+     db.url=jdbc:mysql://localhost:3306/recipe_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+     db.user=root
+     db.password=your_mysql_password
+     ```
+     *(Note: `db.properties` is included in `.gitignore` to prevent sensitive personal credentials from being committed).*
+   - **Method B (Environment Variables - Standard 12-Factor App)**:
+     ```bash
+     export DB_USER=root
+     export DB_PASSWORD=your_mysql_password
+     ```
+   - **Method C (JVM System Property)**:
+     ```bash
+     -Ddb.password=your_mysql_password
+     ```
 
 ### 3. Build & Deploy
 #### Option A: Using IntelliJ IDEA (Recommended)
-1. Open the project folder in IntelliJ IDEA Ultimate.
-2. IntelliJ will detect the Maven `pom.xml` and import dependencies automatically.
+1. Open the project folder in IntelliJ IDEA.
+2. IntelliJ detects the Maven `pom.xml` and imports dependencies automatically.
 3. Configure Tomcat 10.1+ server:
    - Go to **Run** -> **Edit Configurations** -> **Add New** -> **Tomcat Server** (Local).
-   - Under the **Deployment** tab, add `RecipeHub:war exploded`.
+   - Under the **Deployment** tab, click **+** and add `RecipeHub:war exploded`.
    - Set the Application context to `/RecipeHub`.
 4. Click **Run** or **Debug**. The application will launch at:
    ```
@@ -250,13 +265,16 @@ OnlineRecipeSharingSystem/
 
 #### Option B: Using Maven CLI
 ```bash
-# Package the WAR file
+# Package the WAR file using standard Maven:
 mvn clean package
 
-# Deploy the generated WAR
+# Or using IntelliJ IDEA bundled Maven:
+"/Applications/IntelliJ IDEA.app/Contents/plugins/maven-plugin/lib/maven3/bin/mvn" clean package
+
+# Deploy the generated WAR to Apache Tomcat:
 cp target/RecipeHub.war $CATALINA_HOME/webapps/
 
-# Start Tomcat
+# Start Tomcat:
 $CATALINA_HOME/bin/startup.sh
 ```
 
