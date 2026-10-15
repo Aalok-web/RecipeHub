@@ -32,6 +32,8 @@ public class AppLifecycleListener implements ServletContextListener {
         }
 
         sce.getServletContext().setAttribute("appDbHealthy", dbHealthy);
+        // One shared, thread-safe tracker for concurrent recipe detail requests.
+        sce.getServletContext().setAttribute("recipeViewTracker", new com.recipehub.service.RecipeViewTracker());
         sce.getServletContext().setAttribute("appName", "RecipeHub");
     }
 

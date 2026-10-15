@@ -11,6 +11,7 @@ A modern, full-stack Java web application for discovering recipes, organizing me
   - Hero search bar with instant keyword filtering (by ingredients or dish name).
   - Category filtering for Breakfast, Lunch, Dinner, Vegetarian, and Desserts.
   - Interactive recipe cards with preparation times, cook times, servings, and category chips.
+- **Concurrent Recipe View Tracking**: Thread-safe, application-scoped view counts using `ConcurrentHashMap` and `LongAdder`; safe when multiple visitors open recipe pages simultaneously. Counts are in-memory and reset when the app restarts.
 - **Detailed Recipe Pages (`/recipe?id=ID`)**:
   - High-resolution food photography.
   - Interactive ingredients checklist with strike-through completion.
@@ -41,6 +42,7 @@ A modern, full-stack Java web application for discovering recipes, organizing me
 - **Email Service**: Jakarta Mail 2.1 (`jakarta.mail-api` + `angus-mail`)
 - **Security & Hashing**: jBCrypt (BCrypt 12 rounds), SHA-256 OTP hashing
 - **Persistence**: MySQL 8+ via JDBC with 100% PreparedStatement parameterized queries
+- **Concurrency**: Java Executor/concurrent utilities (`ConcurrentHashMap`, `LongAdder`) for thread-safe view counting
 - **Build & Packaging**: Apache Maven 3.8+ (WAR packaging)
 - **Servlet Container**: Apache Tomcat 10.1+ / 11.0+
 
@@ -134,6 +136,8 @@ RecipeHub/
 │   └── test/java/com/recipehub/ # Comprehensive JUnit test suites
 ├── pom.xml                  # Maven dependencies and build configuration
 └── README.md                # Project documentation
+
+Concurrency note: `RecipeViewTracker` is a shared application service. It uses a `ConcurrentHashMap<Long, LongAdder>` so concurrent servlet requests can safely increment per-recipe counters without locking the whole map. These counts are informational only and are not persisted to MySQL.
 ```
 
 ---

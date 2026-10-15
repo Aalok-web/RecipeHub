@@ -142,6 +142,14 @@
           </div>
 
           <div class="fact-item">
+            <div class="fact-icon">👀</div>
+            <div class="fact-text">
+              <small>Views this session</small>
+              <strong><c:out value="${recipeViewCount}"/></strong>
+            </div>
+          </div>
+
+          <div class="fact-item">
             <div class="fact-icon">🍽</div>
             <div class="fact-text">
               <small>Servings</small>

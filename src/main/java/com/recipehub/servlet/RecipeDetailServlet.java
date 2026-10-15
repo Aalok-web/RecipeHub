@@ -61,6 +61,15 @@ public class RecipeDetailServlet extends HttpServlet {
 
             request.setAttribute("recipe", recipe);
 
+            // Count views using an application-scoped, thread-safe counter.
+            Object tracker = getServletContext().getAttribute("recipeViewTracker");
+            if (tracker instanceof com.recipehub.service.RecipeViewTracker) {
+                com.recipehub.service.RecipeViewTracker viewTracker =
+                        (com.recipehub.service.RecipeViewTracker) tracker;
+                viewTracker.recordView(recipe.getId());
+                request.setAttribute("recipeViewCount", viewTracker.getViewCount(recipe.getId()));
+            }
+
             jakarta.servlet.http.HttpSession session = request.getSession(false);
             com.recipehub.model.User currentUser = (session != null) ? (com.recipehub.model.User) session.getAttribute("currentUser") : null;
             if (currentUser != null) {
