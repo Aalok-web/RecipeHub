@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.LongAdder;
 
 /**
  * Thread-safe, in-memory view counters shared by recipe detail requests.
- * Counts are intended for lightweight session-lifetime popularity feedback,
+ * Counts are intended for lightweight application-lifetime popularity feedback,
  * not analytics or durable reporting.
  */
 public final class RecipeViewTracker {

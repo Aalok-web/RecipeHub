@@ -155,3 +155,8 @@ Concurrency note: `RecipeViewTracker` is a shared application service. It uses a
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+
+## Assignment rubric mapping
+
+See [docs/rubric-mapping.md](docs/rubric-mapping.md) for the assignment topic-to-source map, test evidence, and limitations to disclose.
